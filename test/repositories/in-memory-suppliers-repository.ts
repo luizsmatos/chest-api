@@ -14,15 +14,23 @@ export class InMemorySuppliersRepository implements SuppliersRepository {
     return supplier
   }
 
+  async findMany(): Promise<Supplier[]> {
+    return this.items
+  }
+
   async create(supplier: Supplier): Promise<void> {
     this.items.push(supplier)
   }
 
   async save(supplier: Supplier): Promise<void> {
-    const supplierIndex = this.items.findIndex(
-      (item) => item.id === supplier.id,
-    )
+    const itemIndex = this.items.findIndex((item) => item.id === supplier.id)
 
-    this.items[supplierIndex] = supplier
+    this.items[itemIndex] = supplier
+  }
+
+  async delete(supplier: Supplier): Promise<void> {
+    const itemIndex = this.items.findIndex((item) => item.id === supplier.id)
+
+    this.items.splice(itemIndex, 1)
   }
 }
