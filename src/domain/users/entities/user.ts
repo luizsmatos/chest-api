@@ -6,6 +6,7 @@ export interface UserProps {
   name: string
   email: string
   password: string
+  companyId: UniqueEntityID
   createdAt: Date
   updatedAt?: Date | null
 }
@@ -36,6 +37,10 @@ export class User extends Entity<UserProps> {
   set password(password: string) {
     this.props.password = password
     this.touch()
+  }
+
+  get companyId() {
+    return this.props.companyId
   }
 
   get createdAt() {
